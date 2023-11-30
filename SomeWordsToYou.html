@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hellooo</title>
+    <link rel="icon" href="https://static.boredpanda.com/blog/wp-content/uploads/2016/08/cute-kittens-4-57b30a939dff5__605.jpg" type="image/x-icon" />
+    <link rel="stylesheet" href="https://imglink-7837.twil.io/styleofBEM.css">
+    <link rel="stylesheet" href="https://imglink-7837.twil.io/responsive.css">
+</head>
+<body class="therealbody">
+
+    
+    <div id="toast">
+       
+        
+    </div>
+
+    
+    <div class="toast__son">
+        <div onclick="ShowSuccess()"; class="btn btn--success">Yes</div>
+        <div onclick="ShowDanger()"; class="btn btn--danger">And</div>
+        <div onclick="ShowInfo()"; class="btn btn--info">Infos</div>
+        <div onclick="ShowWarning()"; class="btn btn--warning">Last thing !</div>
+    </div>
+    
+    <script>
+        function toast({title='',
+         message='',
+         type='info',
+         duration=3000}) {
+            const main=document.getElementById('toast');
+            if(main)
+            {
+                const toast=document.createElement('div');
+
+                const AutoRemoveId=setTimeout(function(){
+                    main.removeChild(toast);
+                }, duration+1000);
+
+                toast.onclick=function(e){
+                    if(e.target.closest('.toast_close')){
+                        main.removeChild(toast);
+                        clearTimeout(AutoRemoveId);
+                    }
+                }
+
+                toast.classList.add('toast',`toast--${type}`);
+                const delay=(duration/1000).toFixed(2);
+                toast.style.animation=`sideInleft ease 0.5s,fadeOut linear 1s ${delay}s forwards`;
+                const icons = {
+                    success: '',
+                    info: '',
+                    warning: '',
+                    error: '',
+                   
+                };
+                const icon = icons[type];
+
+                toast.innerHTML = `
+                    <div class="toast_icon">
+                        <i class="${icon}"></i>
+                    </div>
+
+                    <div class="toast_body">
+                        <h3 class="toast_title">${title}</h3>
+                        <p class="toast_message">${message}</p>
+                    </div>
+
+                    <div class="toast_close">
+                        <i class=""></i>
+                </div>`;
+                main.appendChild(toast);
+
+               
+            }
+         }      
+        
+        
+
+        function ShowSuccess(){
+            toast({title:' True fact !', 
+            message:'I\'m curious and want to know more about you ! ', 
+            type:'success', 
+            duration:3000})
+        }
+        function ShowDanger(){
+            toast({title:'Sadly but', 
+            message:'You might be disappointed when we talk because I can be a bit boring', 
+            type:'error', 
+            duration:3000})
+        }
+        function ShowInfo(){
+            toast({title:'Feel Free to Message Me 💬', 
+            message:'Send me a direct message whenever you\'d like, there\'s no need to be shy !', 
+            type:'info', 
+            duration:3000})
+        }
+        function ShowWarning(){
+            toast({title:'Regarding your feelings', 
+            message:'I want to respond to your confession because you\'re the courageous one who can express your feelings like that. I truly appreciate it.', 
+            type:'warning', 
+            duration:3000})
+        }
+
+
+
+    </script>
+    
+
+    
+    
+
+</body>
+</html>
